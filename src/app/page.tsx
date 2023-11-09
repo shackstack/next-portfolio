@@ -1,7 +1,8 @@
 import AboutSection from '@/app/components/AboutSection';
 import HeroSection from '@/app/components/HeroSection';
 import Navbar from '@/app/components/Navbar';
-import ProjectsSection from '@/app/components/ProjectSection';
+import PortfolioSection from './components/Portfolio/PortfolioSection';
+import ProjectsSection from './components/Project/ProjectSection';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
+        <PortfolioSection />
       </div>
     </main>
   );
