@@ -19,10 +19,6 @@ const navLinks = [
     title: 'Portfolio',
     path: '#portfolio',
   },
-  {
-    title: 'Contact',
-    path: '#contact',
-  },
 ];
 
 const Navbar = () => {
