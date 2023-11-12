@@ -1,0 +1,30 @@
+{
+  "name": "Jeremy.dev",
+  "short_name": "Jeremy.dev",
+  "description": "개발자 제레미를 소개합니다.",
+  "background_color": "#fff",
+  "theme_color": "#fcfcfc",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "categories": [
+    {
+      "id": "about",
+      "name": "제레미 소개"
+    },
+    {
+      "id": "projects",
+      "name": "진행한 프로젝트, 미션 소개"
+    },
+    {
+      "id": "portfolio",
+      "name": "포트폴리오"
+    }
+  ],
+  "icons": [{ "src": "/favicon.ico", "sizes": "any", "type": "image/x-icon" }],
+  "id": "jeremy.dev",
+  "lang": "ko",
+  "display_override": ["standalone", "window-controls-overlay"]
+}
