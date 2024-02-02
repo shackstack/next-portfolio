@@ -12,13 +12,13 @@ const navLinks = [
     path: '#about',
   },
   {
-    title: 'Projects',
-    path: '#projects',
+    title: 'Products',
+    path: '#products',
   },
-  {
-    title: 'Portfolio',
-    path: '#portfolio',
-  },
+  // {
+  //   title: 'Resume',
+  //   path: '#resume',
+  // },
 ];
 
 const Navbar = () => {

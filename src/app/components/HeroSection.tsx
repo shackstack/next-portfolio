@@ -27,7 +27,8 @@ const HeroSection = () => {
             />
           </h1>
           <p className='text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
-            UI/UX에 깊은 통찰을 가지고있는 프론트엔드 개발자 김민석입니다.
+            문제를 다양한 시각에서 분석하고 해결하는 것을 좋아하는 개발자
+            김민석입니다.
           </p>
           <div>
             <Link

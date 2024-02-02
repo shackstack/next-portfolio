@@ -17,7 +17,7 @@ const projectsData = [
   {
     id: 2,
     title: 'Next Celuveat',
-    description: '우아한테크코스 Nextjs 클론코딩 미션',
+    description: 'Nextjs로 프로젝트 클론코딩 해보기',
     image: '/images/project/next-celuveat-thumbnail.png',
     tag: ['All', 'Mission'],
     gitUrl: 'https://github.com/shackstack/next-celuveat',
@@ -26,7 +26,7 @@ const projectsData = [
   {
     id: 3,
     title: 'E-commerce',
-    description: '우아한테크코스 장바구니 미션',
+    description: '쇼핑몰 장바구니 서비스',
     image: '/images/project/tiffany-thumbnail.png',
     tag: ['All', 'Mission'],
     gitUrl: 'https://github.com/shackstack/react-shopping-cart-prod',
@@ -35,7 +35,7 @@ const projectsData = [
   {
     id: 4,
     title: 'Payments',
-    description: '우아한테크코스 페이먼츠 미션',
+    description: '카드 등록 서비스',
     image: '/images/project/payments-thumbnail.png',
     tag: ['All', 'Mission'],
     gitUrl: 'https://github.com/shackstack/react-payments',
@@ -63,7 +63,7 @@ const projectsData = [
   {
     id: 7,
     title: '점심 뭐 먹지',
-    description: '우아한테크코스 점심 뭐 먹지 미션',
+    description: '순수 자바스크립트로 만든 점심 메뉴 추천 서비스',
     image: '/images/project/lunch-thumbnail.png',
     tag: ['All', 'Mission'],
     gitUrl: 'https://github.com/shackstack/react-lunch/tree/step2',
@@ -72,10 +72,10 @@ const projectsData = [
   {
     id: 8,
     title: 'MovieList',
-    description: '우아한테크코스 무비리스트 미션',
+    description: '순수 자바스크립트로 만든 무비리스트 서비스',
     image: '/images/project/movie-list-thumbnail.png',
     tag: ['All', 'Mission'],
-    gitUrl: 'https://github.com/shackstack/javascript-movie-review/tree-step2',
+    gitUrl: 'https://github.com/shackstack/javascript-movie-review/tree/step2',
     previewUrl: 'https://shackstack.github.io/javascript-movie-review/',
   },
 ];
@@ -99,9 +99,9 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id='projects' className='pt-24 min-h-screen'>
+    <section id='products' className='pt-24 min-h-screen'>
       <h2 className='text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12'>
-        My Projects
+        My Products
       </h2>
       <div className='text-white flex flex-row justify-center items-center gap-2 py-6'>
         <ProjectTag
