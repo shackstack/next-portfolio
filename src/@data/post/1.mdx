@@ -1,0 +1,105 @@
+이번에는 웹팩을 사용하여 개발 환경을 설정하는 방법을 다뤄보려고한다.
+다음과 같은 순서로 개발 환경을 설정할 수 있다.
+
+## 1. 프로젝트 초기화
+
+먼저 프로젝트 폴더를 생성하고, 해당 폴더에서 명령어 또는 패키지 매니저를 사용하여 프로젝트를 초기화한다.
+
+```
+npm init
+yarn init
+```
+
+## 2. 웹팩(webpack) 설치
+
+프로젝트에 웹팩을 설치한다. 명령어 또는 패키지 매니저를 사용하여 웹팩과 관련된 패키지를 설치한다. 일반적으로 웹팩을 설치할 때 devDependencies로 설치하는 것이 좋다.
+
+```
+npm install webpack webpack-cli --save-dev
+yarn add webpack webpack-cli --dev
+
+```
+
+## 3. 웹팩(webpack) 구성 파일 생성
+
+프로젝트 루트 디렉토리에 웹팩 구성 파일(webpack.config.js)을 생성한다. 이 파일은 웹팩의 동작을 설정하는 JavaScript 모듈이다.
+
+![](https://velog.velcdn.com/images/shackstack/post/8706b540-ba16-4299-9bd1-6c43caf7ec8f/image.png)
+
+## 4. 웹팩(webpack) 구성 설정
+
+웹팩 구성 파일에서 웹팩의 동작을 설정한다. 주요 설정은 다음과 같다.
+
+- 엔트리(entry) 설정 : 웹팩 번들링의 시작점으로 사용할 파일을 지정한다.
+- 출력(output) 설정 : 번들링된 결과물의 경로와 파일명 등을 설정한다.
+- 모듈(module) 설정 : 웹팩이 처리해야 할 모듈에 대한 규칙을 정의한다. 로더를 사용하여 다양한 유형의 자원을 처리한다.
+- 플러그인(plugins) 설정 : 웹팩의 기능을 확장하거나 추가적인 처리를 수행하는 플러그인을 설정한다.
+
+```javascript
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+module.exports = {
+  entry: './src/index.js', // 엔트리 파일 경로
+  output: {
+    path: path.resolve(__dirname, 'dist'), // 번들링된 파일의 출력 경로
+    filename: 'bundle.js', // 번들 파일명
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/, // JavaScript 파일을 대상으로 함
+        exclude: /node_modules/, // node_modules 폴더는 제외
+        use: {
+          loader: 'babel-loader', // Babel 로더 사용
+          options: {
+            presets: ['@babel/preset-env'], // Babel 프리셋 설정
+          },
+        },
+      },
+      {
+        test: /\.css$/, // CSS 파일을 대상으로 함
+        use: ['style-loader', 'css-loader'], // 스타일 로더와 CSS 로더 사용
+      },
+      // 추가적인 로더 및 규칙을 설정할 수 있습니다.
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html', // 템플릿 파일 경로
+      filename: 'index.html', // 출력 파일명
+    }),
+    new CleanWebpackPlugin(),
+    // 추가적인 플러그인 설정
+  ],
+};
+```
+
+## 5. 스크립트(scripts) 작성
+
+package.json 파일의 `scripts`섹션에 웹팩 빌드나 개발 서버 실행과 같은 명령어를 추가한다. 예를들어, `build`스크립트를 추가하고 웹팩을 실행하는 명령어를 작성한다.
+
+```json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development"
+  },
+  "devDependencies": {
+    "webpack": "버전",
+    "webpack-cli": "버전",
+    "webpack-dev-server": "버전"
+  }
+}
+```
+
+## 6. 필요한 로더(loader)와 플러그인(plugins) 설치
+
+프로젝트에서 필요한 로더와 플러그인을 추가로 설치하고 웹팩 구성 파일에서 사용할 수 있도록 설정한다. 예를 들어, CSS파일을 처리하기 위해 CSS 로더와 스타일 로더를 설치하고 구성파일에서 사용한다.
+
+## 7. 개발 서버 설정(optional)
+
+개발 환경에서 빠른 개발을 위해 개발 서버를 설정할 수 있다. webpack-dev-server나 다른 도구를 사용하여 개발 서버를 실행하고, 변경 사항을 실시간으로 감지하고 자동으로 리로드할 수 있다.

@@ -48,6 +48,30 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </code>
     ),
+    pre: ({ children }) => (
+      <pre
+        style={{
+          color: 'black',
+          backgroundColor: '#d1d5db',
+          borderRadius: '6px',
+          padding: '2px',
+          width: '100%',
+          fontSize: '16px',
+          overflowX: 'auto',
+        }}>
+        <code
+          style={{
+            backgroundColor: 'transparent',
+            color: 'black',
+            borderRadius: '6px',
+            padding: '1px 4px',
+            margin: '0 2px',
+            counterReset: 'line',
+          }}>
+          {children}
+        </code>
+      </pre>
+    ),
     ...components,
   };
 }
