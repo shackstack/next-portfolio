@@ -1,5 +1,12 @@
 'use client';
-import React, { useTransition, useState, ReactNode } from 'react';
+import React, {
+  useTransition,
+  useState,
+  ReactNode,
+  useEffect,
+  useRef,
+  MutableRefObject,
+} from 'react';
 import Image from 'next/image';
 import TabButton from './TabButton';
 
@@ -37,6 +44,7 @@ const TAB_DATA: TabData[] = [
 ];
 
 const AboutSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState('skills');
   const [isPending, startTransition] = useTransition();
 
@@ -46,16 +54,33 @@ const AboutSection = () => {
     });
   };
 
+  useEffect(() => {
+    ref.current?.addEventListener('mousemove', (e: MouseEvent) => {
+      const x = e.offsetX;
+      const y = e.offsetY;
+      const rotateY = (-2 / 25) * x + 20;
+      const rotateX = (2 / 25) * y - 20;
+
+      ref.current?.setAttribute(
+        'style',
+        `transform : perspective(1500px)
+      rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+      );
+    });
+  }, [ref]);
+
   return (
     <section className='text-white py-48 min-h-screen' id='about'>
       <div className='md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
-        <Image
-          src='/images/profile.jpg'
-          alt='project'
-          width={500}
-          height={500}
-          className='shadow-lg shadow-purple-800'
-        />
+        <div ref={ref}>
+          <Image
+            src='/images/profile.jpg'
+            alt='project'
+            width={500}
+            height={500}
+            className='shadow-lg shadow-purple-800'
+          />
+        </div>
         <div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
           <h2 className='text-4xl font-bold text-white mb-4'>About Me</h2>
           <p className='text-base lg:text-lg'>
