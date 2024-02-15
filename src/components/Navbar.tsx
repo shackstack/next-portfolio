@@ -9,11 +9,15 @@ import Exit from '@/assets/icons/exit.svg';
 const navLinks = [
   {
     title: 'About',
-    path: '#about',
+    path: '/#about',
   },
   {
     title: 'Products',
-    path: '#products',
+    path: '/#products',
+  },
+  {
+    title: 'Posts',
+    path: 'posts',
   },
   // {
   //   title: 'Resume',
