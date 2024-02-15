@@ -1,9 +1,7 @@
-import AboutSection from '@/app/components/AboutSection';
-import HeroSection from '@/app/components/HeroSection';
-import Navbar from '@/app/components/Navbar';
-import ProjectsSection from './components/Project/ProjectSection';
-import DownloadButton from './components/Resume/Resume';
-import Resume from './components/Resume/Resume';
+import AboutSection from '@/components/AboutSection';
+import HeroSection from '@/components/HeroSection';
+import Navbar from '@/components/Navbar';
+import ProjectsSection from '@/components/Project/ProjectSection';
 
 export default function Home() {
   return (
@@ -13,9 +11,6 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
-        {/* <section id='resume' className='pt-24 min-h-screen'>
-          <Resume />
-        </section> */}
       </div>
     </main>
   );
