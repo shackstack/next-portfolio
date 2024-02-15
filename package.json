@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.1.0",
+    "@types/mdx": "^2.0.11",
     "framer-motion": "^10.16.4",
     "heroicons": "^2.0.18",
     "next": "14.0.1",
