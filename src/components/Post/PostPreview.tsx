@@ -25,7 +25,7 @@ export const PostPreview = ({ post }: Props) => {
             </span>
           ))}
         </p>
-        <p className='text-sm text-gray-300'>{excerpt}</p>
+        <p className='text-sm dark:text-gray-300'>{excerpt}</p>
         <div className='flex h-0 grow items-center'>
           <div className='w-full h-56 rounded-xl overflow-hidden border-gray-500 border'>
             <Image

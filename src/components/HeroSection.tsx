@@ -59,7 +59,7 @@ const HeroSection = () => {
               repeat={Infinity}
             />
           </h1>
-          <p className='text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
+          <p className='dark:text-[#ADB7BE] text-base sm:text-lg mb-6 lg:text-xl'>
             문제를 다양한 시각에서 분석하고 해결하는 것을 좋아하는 개발자
             김민석입니다.
           </p>
