@@ -12,7 +12,9 @@ const Posts = () => {
     <main className='min-h-screen p-12 dark:bg-[#121212]'>
       <Navbar />
       <div className='h-12'></div>
-      <h1 className='text-4xl font-semibold text-center'>All Posts</h1>
+      <h1 className='text-4xl font-semibold text-center dark:text-white'>
+        All Posts
+      </h1>
       <PostPreviewList posts={posts} />
     </main>
   );
