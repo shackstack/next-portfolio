@@ -22,9 +22,10 @@ const postExample: Post = {
 
 const Posts = () => {
   return (
-    <main className='bg-[#121212]'>
+    <main className='bg-[#121212] min-h-screen p-12'>
       <Navbar />
       <div className='h-12'></div>
+      <h1 className='text-4xl font-semibold text-center'>All Posts</h1>
       <PostPreviewList posts={[postExample]} />
     </main>
   );
