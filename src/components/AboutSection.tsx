@@ -72,14 +72,19 @@ const AboutSection = () => {
   return (
     <section className='text-white py-48 min-h-screen' id='about'>
       <div className='md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
-        <div ref={ref}>
-          <Image
-            src='/images/profile.jpg'
-            alt='project'
-            width={500}
-            height={500}
-            className='shadow-lg shadow-purple-800'
-          />
+        <div className='flex flex-col'>
+          <div className='text-xl text-center w-[500px] mb-8'>
+            👇 마우스를 호버해보세요
+          </div>
+          <div ref={ref}>
+            <Image
+              src='/images/profile.jpg'
+              alt='project'
+              width={500}
+              height={500}
+              className='shadow-lg shadow-purple-800'
+            />
+          </div>
         </div>
         <div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
           <h2 className='text-4xl font-bold text-white mb-4'>About Me</h2>
