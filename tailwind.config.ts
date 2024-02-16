@@ -20,5 +20,5 @@ module.exports = {
       secondary: colors.pink,
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
