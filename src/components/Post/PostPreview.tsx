@@ -15,7 +15,7 @@ export const PostPreview = ({ post }: Props) => {
       className='lg:h-[40rem] h-[36rem] break-keep border-4 items-center justify-between py-10 px-10 text-center border-gray-500 text-xl flex flex-col gap-y-5'>
       <hr className='w-10 border-gray-500' />
       <div className='flex flex-col gap-y-2 items-center h-0 grow'>
-        <span className='text-2xl w-[80%]'>{title}</span>
+        <span className='text-2xl w-[80%] dark:text-white'>{title}</span>
         <p>
           {tags.map((tag) => (
             <span
