@@ -29,6 +29,14 @@ const HeroSection = () => {
       rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
       );
     });
+
+    ref.current?.addEventListener('mouseout', () => {
+      ref.current?.setAttribute(
+        'style',
+        `transform : perspective(1500px)
+      rotateX(0deg) rotateY(0deg)`
+      );
+    });
   }, [ref]);
 
   return (
