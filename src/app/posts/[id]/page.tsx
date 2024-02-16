@@ -1,16 +1,18 @@
-import WebpackMD from '@/@data/post/1.mdx';
+'use client';
+
+import { posts } from '@/@data/posts';
 import Navbar from '@/components/Navbar';
+import dynamic from 'next/dynamic';
 
 type Props = {
   params: { id: string };
 };
 
-export const metadata = {
-  title: `Post`,
-};
-
 const PostPage = ({ params: { id } }: Props) => {
-  // const source = await getPostSourceById(id);
+  const post = posts.find((post) => post.id === Number(id));
+  const WebpackMD = dynamic(
+    () => import(`../../../@data/posts/${id}/index.mdx`)
+  );
 
   return (
     <>
@@ -20,16 +22,13 @@ const PostPage = ({ params: { id } }: Props) => {
         <div className='flex flex-col items-center'>
           <div className='w-[65rem] max-w-full flex flex-col pt-[3rem] gap-y-4 mb-16'>
             <h1 className='text-6xl font-medium break-keep tracking-tighter leading-tight md:leading-none md:text-start text-center'>
-              {post.title}
+              {post?.title}
             </h1>
-            <span className='font-bold text-zinc-400 md:text-start text-center text-lg'>
-              {/* <DateFormatter dateString={post.date} /> */}
+            <span className='font-bold text-zinc-400 text-end text-lg'>
+              {post?.date}
             </span>
           </div>
-          <div className='w-[75rem] max-w-full overflow-hidden border border-gray-500 rounded-xl mb-16'>
-            {/* <CoverImage title={post.title} src={post.coverImage} /> */}
-          </div>
-          {/* <Toc /> */}
+          <div className='w-[75rem] max-w-full overflow-hidden border border-gray-500 rounded-xl mb-16' />
           <div className='w-[65rem] max-w-full md:max-w-[60%] prose dark:prose-invert'>
             <WebpackMD />
           </div>
