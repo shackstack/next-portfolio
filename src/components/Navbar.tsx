@@ -17,11 +17,11 @@ const navLinks = [
   },
   {
     title: 'Posts',
-    path: 'posts',
+    path: '/posts',
   },
   {
     title: 'Resume',
-    path: 'resume',
+    path: '/resume',
   },
 ];
 

@@ -6,9 +6,11 @@ const Resume = () => {
     <>
       <Navbar />
       <div className='h-12' />
-      <main className='px-24 pt-8 text-xl leading-10  bg-[#121212]'>
-        <File />
-      </main>
+      <div className='flex flex-col items-center'>
+        <article className='max-w-full prose prose-lg dark:prose-invert'>
+          <File />
+        </article>
+      </div>
     </>
   );
 };
