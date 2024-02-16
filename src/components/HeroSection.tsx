@@ -1,11 +1,36 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { TypeAnimation } from 'react-type-animation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 const HeroSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.addEventListener('mousemove', (e: MouseEvent) => {
+      const x = e.offsetX;
+      const y = e.offsetY;
+      const rotateY = (-1 / 10) * x + 20;
+      const rotateX = (1 / 10) * y - 20;
+
+      childRef.current?.setAttribute(
+        'style',
+        `
+        background-position : ${x / 5 + y + 5}%
+      `
+      );
+
+      ref.current?.setAttribute(
+        'style',
+        `transform : perspective(1500px)
+      rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+      );
+    });
+  }, [ref]);
+
   return (
     <section className='lg:py-16'>
       <div className='grid grid-cols-1 sm:grid-cols-12'>
@@ -38,13 +63,6 @@ const HeroSection = () => {
                 My Github
               </span>
             </Link>
-            <Link
-              href='https://velog.io/@shackstack'
-              className='px-1 inline-block mr-3 py-1 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-800 text-white mt-3'>
-              <span className='block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2'>
-                Velog
-              </span>
-            </Link>
             <div className='px-6 inline-block mr-3 py-3 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:bg-slate-200 text-white'>
               +82 10-5258-1305
             </div>
@@ -55,13 +73,19 @@ const HeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className='col-span-4 place-self-center mt-4 lg:mt-0'>
-          <div className='rounded-full bg-[#181818] w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative'>
+          <div
+            ref={ref}
+            className='w-[250px] h-[250px] lg:w-[400px] lg:h-[400px] relative'>
             <Image
               src='/images/memoji.png'
               alt='hero image'
               className='absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'
               width={300}
               height={300}
+            />
+            <div
+              ref={childRef}
+              className='absolute rounded-full w-full h-full bg-[size:150%_150%] bg-[position:100%] bg-gradient-linear opacity-70 brightness-120'
             />
           </div>
         </motion.div>
