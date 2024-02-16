@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const postExample: Post = {
-  slug: 'example-post',
+  id: 1,
   title: '웹팩(webpack)으로 개발 환경 설정하기',
   date: '2024-02-15',
   coverImage:

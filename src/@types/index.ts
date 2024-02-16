@@ -1,5 +1,5 @@
 export interface Post {
-  slug: string;
+  id: number;
   title: string;
   date: string;
   coverImage: string;

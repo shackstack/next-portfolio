@@ -48,7 +48,7 @@ export const PostPreviewList = ({ posts }: Props) => {
           ))}
         </div> */}
         {filteredPosts.map((post) => (
-          <PostPreview key={post.slug} post={post} />
+          <PostPreview key={post.id} post={post} />
         ))}
       </div>
     </div>
