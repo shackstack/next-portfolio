@@ -21,7 +21,7 @@ const PostPage = ({ params: { id } }: Props) => {
       <article className='p-3 text-xl dark:bg-[#121212]'>
         <div className='flex flex-col items-center'>
           <div className='w-[65rem] max-w-full flex flex-col pt-[3rem] gap-y-4 mb-16'>
-            <h1 className='text-6xl font-medium break-keep tracking-tighter leading-tight md:leading-none md:text-start text-center'>
+            <h1 className='text-6xl font-medium break-keep tracking-tighter leading-tight md:leading-none md:text-start text-center dark:text-white'>
               {post?.title}
             </h1>
             <span className='font-bold text-zinc-400 text-end text-lg'>
