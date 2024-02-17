@@ -1,52 +1,21 @@
 'use client';
-
-import {
-  ChangeEvent,
-  MouseEvent,
-  useEffect,
-  useInsertionEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
-
+import { useTheme } from 'next-themes';
 import Sun from '@/assets/icons/sun.svg';
 import Moon from '@/assets/icons/moon.svg';
 
 const Switcher = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const { systemTheme, theme, setTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  useInsertionEffect(() => {
-    const theme = localStorage.getItem('theme');
-
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      setIsDarkMode(true);
-      return;
-    }
-
-    setIsDarkMode(false);
-  }, []);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-    if (!isDarkMode) {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove('dark');
-      localStorage.removeItem('theme');
-    }
-  }, [isDarkMode]);
-
-  const onClickDisplayModeHandler = (e: MouseEvent) => {
-    setIsDarkMode((prev) => !prev);
+  const onClickDisplayModeHandler = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
-    <button onClick={onClickDisplayModeHandler}>
-      {isDarkMode ? <Sun /> : <Moon />}
+    <button
+      onClick={onClickDisplayModeHandler}
+      className='absolute right-12 bottom-12 border-2 p-4 rounded-full border-black dark:border-white'>
+      {currentTheme === 'dark' ? <Sun /> : <Moon />}
     </button>
   );
 };

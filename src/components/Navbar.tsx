@@ -5,7 +5,6 @@ import NavLink from './NavLink';
 import MenuOverlay from './MenuOverlay';
 import Menu from '@/assets/icons/menu.svg';
 import Exit from '@/assets/icons/exit.svg';
-import Switcher from './@common/Switcher';
 
 const navLinks = [
   {
@@ -59,7 +58,6 @@ const Navbar = () => {
                 <NavLink href={link.path} title={link.title} />
               </li>
             ))}
-            <Switcher />
           </ul>
         </div>
       </div>
