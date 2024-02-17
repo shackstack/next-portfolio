@@ -81,9 +81,6 @@ const AboutSection = () => {
     <section className='py-48 min-h-screen dark:text-white' id='about'>
       <div className='md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
         <div className='flex flex-col'>
-          <div className='text-xl text-center w-[500px] mb-8'>
-            👇 마우스를 호버해보세요
-          </div>
           <div ref={ref}>
             <Image
               src='/images/profile.jpg'
