@@ -14,8 +14,9 @@ const Switcher = () => {
   return (
     <button
       onClick={onClickDisplayModeHandler}
-      className='absolute right-12 bottom-12 border-2 p-4 rounded-full border-black dark:border-white'>
+      className='fixed right-12 bottom-12 border-2 p-4 rounded-full border-black dark:border-white'>
       {currentTheme === 'dark' ? <Sun /> : <Moon />}
+      <div className='hidden'>{currentTheme}</div>
     </button>
   );
 };
