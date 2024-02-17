@@ -1,42 +1,53 @@
 'use client';
 
-import { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useInsertionEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
+
+import Sun from '@/assets/icons/sun.svg';
+import Moon from '@/assets/icons/moon.svg';
 
 const Switcher = () => {
-  const [theme, setTheme] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
-  useLayoutEffect(() => {
+  useInsertionEffect(() => {
     const theme = localStorage.getItem('theme');
 
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
-      setTheme('dark');
+      setIsDarkMode(true);
       return;
     }
 
-    setTheme('light');
+    setIsDarkMode(false);
   }, []);
 
-  const onChangeDisplayModeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-
-    if (value === 'dark') {
+  useEffect(() => {
+    if (isDarkMode) {
+      setIsDarkMode(true);
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
-      setTheme('dark');
     }
-    if (value === 'light') {
+    if (!isDarkMode) {
+      setIsDarkMode(false);
       document.documentElement.classList.remove('dark');
       localStorage.removeItem('theme');
-      setTheme('light');
     }
+  }, [isDarkMode]);
+
+  const onClickDisplayModeHandler = (e: MouseEvent) => {
+    setIsDarkMode((prev) => !prev);
   };
 
   return (
-    <select name='mode' onChange={onChangeDisplayModeHandler} value={theme}>
-      <option value='dark'>dark</option>
-      <option value='light'>light</option>
-    </select>
+    <button onClick={onClickDisplayModeHandler}>
+      {isDarkMode ? <Sun /> : <Moon />}
+    </button>
   );
 };
 

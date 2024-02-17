@@ -20,7 +20,7 @@ export const PostPreview = ({ post }: Props) => {
           {tags.map((tag) => (
             <span
               key={tag}
-              className='border border-gray-500 rounded-full h-10 shrink-0 px-2 text-sm'>
+              className='border border-gray-500 rounded-full h-10 shrink-0 px-2 text-sm dark:text-white'>
               #{tag.toUpperCase()}
             </span>
           ))}
