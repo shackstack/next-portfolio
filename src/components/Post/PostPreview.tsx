@@ -12,11 +12,20 @@ export const PostPreview = ({ post }: Props) => {
   return (
     <Link
       href={`/posts/${id}`}
-      className='lg:h-[40rem] h-[36rem] break-keep border-4 items-center justify-between py-10 px-10 text-center border-gray-500 text-xl flex flex-col gap-y-5'>
-      <hr className='w-10 border-gray-500' />
-      <div className='flex flex-col gap-y-2 items-center h-0 grow'>
-        <span className='text-2xl w-[80%] dark:text-white'>{title}</span>
-        <p>
+      className='h-[32rem] border-4 items-center justify-betweentext-center border-gray-500 text-xl flex flex-col gap-y-5'>
+      <div className='flex h-0 grow-[3] items-center relative w-full'>
+        <Image
+          src={`/images/posts/${id}/thumbnail.webp`}
+          alt='cover'
+          fill
+          className='object-cover'
+        />
+      </div>
+      {/* <hr className='w-10 border-gray-500' /> */}
+      <div className='flex flex-col gap-y-2 items-center h-0 grow-[2] relative'>
+        <span className='text-xl w-[80%] dark:text-white'>{title}</span>
+        <p className='text-sm dark:text-gray-300 px-10'>{excerpt}</p>
+        <p className='absolute right-4 bottom-0'>
           {tags.map((tag) => (
             <span
               key={tag}
@@ -25,18 +34,6 @@ export const PostPreview = ({ post }: Props) => {
             </span>
           ))}
         </p>
-        <p className='text-sm dark:text-gray-300'>{excerpt}</p>
-        <div className='flex h-0 grow items-center'>
-          <div className='w-full h-56 rounded-xl overflow-hidden border-gray-500 border'>
-            <Image
-              src={coverImage}
-              width={5000}
-              height={1000}
-              alt='cover'
-              className='h-full w-max'
-            />
-          </div>
-        </div>
       </div>
       <span className='text-sm'>
         {/* <DateFormatter dateString={date} /> */}
