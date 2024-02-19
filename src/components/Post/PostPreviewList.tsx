@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 // import { flat, map, toArray, uniq } from "@fxts/core";
-import { Post } from '@/@types';
-import { PostPreview } from './PostPreview';
+import { Post } from "@/@types";
+import { PostPreview } from "./PostPreview";
 
 interface Props {
   posts: Post[];
@@ -22,7 +22,7 @@ export const PostPreviewList = ({ posts }: Props) => {
       selectedTag
         ? posts.filter(({ tags }) => tags.includes(selectedTag))
         : posts,
-    [posts, selectedTag]
+    [posts, selectedTag],
   );
 
   const handleSelectTag = (tag: string) => {
@@ -30,8 +30,8 @@ export const PostPreviewList = ({ posts }: Props) => {
   };
 
   return (
-    <div className='flex flex-col h-full w-full py-10'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-4 w-full pb-10'>
+    <div className="flex h-full w-full flex-col py-10">
+      <div className="grid w-full grid-cols-1 gap-4 pb-10 md:grid-cols-2 lg:grid-cols-4">
         {/* <div className="lg:h-[20rem] rounded text-xl">
           {tags.map((tag) => (
             <button

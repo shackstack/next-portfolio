@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, {
   useTransition,
   useState,
@@ -6,9 +6,9 @@ import React, {
   useEffect,
   useRef,
   MutableRefObject,
-} from 'react';
-import Image from 'next/image';
-import TabButton from './TabButton';
+} from "react";
+import Image from "next/image";
+import TabButton from "./TabButton";
 
 interface TabData {
   title: string;
@@ -18,10 +18,10 @@ interface TabData {
 
 const TAB_DATA: TabData[] = [
   {
-    title: 'Main Language',
-    id: 'skills',
+    title: "Main Language",
+    id: "skills",
     content: (
-      <ul className='list-disc pl-2'>
+      <ul className="list-disc pl-2">
         <li>React, Typescript, JavaScript</li>
         <li>React-query, Axios</li>
         <li>MSW, Jest, Cypress, Storybook</li>
@@ -31,10 +31,10 @@ const TAB_DATA: TabData[] = [
     ),
   },
   {
-    title: 'Education',
-    id: 'education',
+    title: "Education",
+    id: "education",
     content: (
-      <ul className='list-disc pl-2'>
+      <ul className="list-disc pl-2">
         <li>우아한테크코스 (2023.02 ~ 2023.11)</li>
         <li>이노베이션 캠프 in 서울 (2022.08 ~ 2022.10)</li>
         <li>세종대학교 외식경영학 학사 (2016.03 ~ 2022.02)</li>
@@ -45,7 +45,7 @@ const TAB_DATA: TabData[] = [
 
 const AboutSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const [tab, setTab] = useState('skills');
+  const [tab, setTab] = useState("skills");
   const [isPending, startTransition] = useTransition();
 
   const handleTabChange = (id: string) => {
@@ -55,45 +55,45 @@ const AboutSection = () => {
   };
 
   useEffect(() => {
-    ref.current?.addEventListener('mousemove', (e: MouseEvent) => {
+    ref.current?.addEventListener("mousemove", (e: MouseEvent) => {
       const x = e.offsetX;
       const y = e.offsetY;
       const rotateY = (-2 / 25) * x + 20;
       const rotateX = (2 / 25) * y - 20;
 
       ref.current?.setAttribute(
-        'style',
+        "style",
         `transform : perspective(1500px)
-      rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+      rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
       );
     });
 
-    ref.current?.addEventListener('mouseout', () => {
+    ref.current?.addEventListener("mouseout", () => {
       ref.current?.setAttribute(
-        'style',
+        "style",
         `transform : perspective(1500px)
-      rotateX(0deg) rotateY(0deg)`
+      rotateX(0deg) rotateY(0deg)`,
       );
     });
   }, [ref]);
 
   return (
-    <section className='py-48 min-h-screen dark:text-white' id='about'>
-      <div className='md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
-        <div className='flex flex-col'>
+    <section className="min-h-screen py-48 dark:text-white" id="about">
+      <div className="items-center gap-8 px-4 py-8 sm:py-16 md:grid md:grid-cols-2 xl:gap-16 xl:px-16">
+        <div className="flex flex-col">
           <div ref={ref}>
             <Image
-              src='/images/profile.jpg'
-              alt='project'
+              src="/images/profile.jpg"
+              alt="project"
               width={500}
               height={500}
-              className='shadow-lg shadow-purple-800'
+              className="shadow-lg shadow-purple-800"
             />
           </div>
         </div>
-        <div className='mt-4 md:mt-0 text-left flex flex-col h-full'>
-          <h2 className='text-4xl font-bold dark:text-white mb-4'>About Me</h2>
-          <p className='text-base lg:text-lg'>
+        <div className="mt-4 flex h-full flex-col text-left md:mt-0">
+          <h2 className="mb-4 text-4xl font-bold dark:text-white">About Me</h2>
+          <p className="text-base lg:text-lg">
             안녕하세요😃
             <br />
             저는 대학에서 우연히 접한 교양 프로그래밍 과목을 통해 개발에
@@ -117,21 +117,23 @@ const AboutSection = () => {
             우아한테크코스를 이수하며 진행하였던 미션과 프로젝트는 아래에서
             확인하실 수 있습니다.
           </p>
-          <div className='flex flex-row justify-start mt-8'>
+          <div className="mt-8 flex flex-row justify-start">
             <TabButton
-              selectTab={() => handleTabChange('skills')}
-              active={tab === 'skills'}>
-              {' '}
-              Skills{' '}
+              selectTab={() => handleTabChange("skills")}
+              active={tab === "skills"}
+            >
+              {" "}
+              Skills{" "}
             </TabButton>
             <TabButton
-              selectTab={() => handleTabChange('education')}
-              active={tab === 'education'}>
-              {' '}
-              Education{' '}
+              selectTab={() => handleTabChange("education")}
+              active={tab === "education"}
+            >
+              {" "}
+              Education{" "}
             </TabButton>
           </div>
-          <div className='mt-8'>
+          <div className="mt-8">
             {TAB_DATA.find((t) => t.id === tab)?.content}
           </div>
         </div>
