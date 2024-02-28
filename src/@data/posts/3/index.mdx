@@ -1,20 +1,133 @@
-## 문제 상황 1: 서비스 중단 및 저장 공간 제한 문제
+특정 기관에서 프로젝트를 진행하게된다면 보안상의 이유로 AWS IAM 권한을 부여받아 제한된 환경에 놓이기 마련입니다.
+저도 교육기관에서 팀프로젝트를 진행하며 S3에 Access-Key에 접근이 제한되어 자동배포 파이프라인을 구축함에 있어 어려움을 겪었는데요.
+오늘은 Access Key 없이 S3로 자동 배포 파이프라인 구축에 성공한 방법에 대해서 소개해드리고자 합니다.
 
-- EC2 인스턴스를 사용하는 기존 배포 방식은 애플리케이션의 복잡도 증가에 따라 제한된 저장 공간과 증가하는 비용 문제를 야기했습니다.
-- 특히, 정적 리소스의 저장 및 관리에 있어 비효율성이 드러났습니다.
+## S3를 사용하게 된 배경
 
-## 해결 과정 1: 정적 리소스 관리 및 CDN 구축
+셀럽들이 다녀간 맛집을 소개하는 서비스이다보니, 아무래도 수집한 데이터를 저장한 공간이 필요했습니다.
+S3는 가용성이 높고, g-zip압축을 지원하고, 속도도 빠르기에 이러한 정적 리소스를 관리하기 매우 적합한 서비스였습니다.
+그래서 프론트엔드 빌드파일도 정적 리소스이기에 S3에 배포해서 EC2 용량을 줄여 비용을 절감하고자 했습니다.
 
-- Amazon S3를 이용하여 정적 리소스(이미지, 스크립트 파일 등)를 관리하고, CloudFront와 함께 CDN을 구축함으로써 이 문제를 해결했습니다.
-- 이 방식은 저장 공간 비용을 크게 절감할 뿐만 아니라, 리소스를 엣지 로케이션으로 분산시켜 서비스의 가용성과 성능을 향상시켰습니다.
-- 또한, CloudFront CDN은 사용자에게 더 빠른 콘텐츠 전송을 가능하게 하여 사용자 경험을 개선하는 데 기여했습니다.
+## 자동 배포를 도입하게된 배경
 
-## 문제 상황 2: 비효율적인 수동 배포 프로세스 및 접근 제한
+로컬에서 빌드를 진행하고, S3에 접속하여 Authenticator를 통해 보안코드를 입력하고, 타겟 객체를 찾아 기존 빌드파일을 지우고, 드래그 엔 드랍으로 파일을 옮기고...
+단순반복노동적인 일에서 발생하는 비용이 만만치 않더라구요.
+그래서 자동배포에 대한 갈증이 매우 높았습니다.
 
-- 수동으로 S3에 빌드 파일을 드래그 앤 드롭하는 방식은 시간이 많이 소요되었고, 잠재적으로 위험한 작업이었습니다.
-- 또한, 교육 기관에서 관리하는 AWS Access Key에 접근하지 못하여, Github-Action을 사용한 자동 배포에 어려움을 겪었습니다.
+## 제한된 IAM 권한
 
-## 해결 과정 2: EC2를 이용한 자동배포 파이프라인 구축
+교육기관의 AWS 계정으로 프로젝트가 관리된기에, 보안상의 이유로 IAM으로 권한을 받아 프로젝트를 진행하였습니다.
+그래서 S3에 AccessKey가 없어 많이알려진 S3 자동배포 yaml 코드를 작성할 수가 없더군요.
+좌절하면서 다른 팀에 방문하며 해결책을 수소문하던 도중, 스토리북 배포를 AccessKey 없이 성공한 크루를 영접할 수 있었습니다.
 
-- 이 문제를 해결하기 위해, EC2 인스턴스에 AWS CLI를 설치하고, Access Key 없이도 S3에 빌드 파일을 자동으로 배포하는 파이프라인을 구축했습니다.
-- 이 방식은 배포 과정을 크게 단순화하며, 배포의 안정성과 생산성을 모두 향상시켰습니다.
+## EC2로 우회해서 S3에 자동배포
+
+해결방안은 EC2로 우회해서 S3에 자동배포시키는 것이었습니다.
+
+1. 우선, EC2 인스턴스를 생성하고 AWS CLI를 설치합니다.
+2. 인스턴스에 S3 Full Access 권한을 부여하면 준비완료입니다.
+3. GitHub Actions에 Self-hosted Runner 등록합니다.
+4. GitHub Actions에 워크플로우를 추가합니다.
+
+```yml
+name: ✨ Celuveat frontend CD ✨
+
+on:
+  push:
+    branches:
+      - develop-frontend*
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./frontend
+    concurrency:
+      group: ${{ github.workflow }}
+      cancel-in-progress: true
+
+    steps:
+      - name: ✨ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: ✨ Node.js 설정
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: ✨ Yarn global cache 캐싱
+        uses: actions/cache@v3
+        with:
+          path: "**/.yarn"
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: ✨ Yarn project cache 캐싱
+        uses: actions/cache@v3
+        with:
+          path: "~/.yarn/cache"
+          key: ${{ runner.os }}-yarn-project-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: 환경변수 설정
+        run: |
+          echo "BASE_URL=$BASE_URL" >> .dev.env
+          echo "GOOGLE_MAP_API_KEY=$GOOGLE_MAP_API_KEY" >> .dev.env
+          echo "SHARE_KAKAO_LINK_KEY=$SHARE_KAKAO_LINK_KEY" >> .dev.env
+        env:
+          BASE_URL: ${{secrets.DEV_BASE_URL}}
+          GOOGLE_MAP_API_KEY: ${{secrets.GOOGLE_MAP_API_KEY}}
+          SHARE_KAKAO_LINK_KEY: ${{secrets.SHARE_KAKAO_LINK_KEY}}
+
+      - name: ✨ 의존성 설치
+        run: yarn install
+
+      - name: ✨ 빌드
+        run: yarn build:dev
+
+      - name: ✨ artifact로 빌드파일 다운로드 가능하게 만들기
+        uses: actions/upload-artifact@v3
+        with:
+          name: dev-dist
+          path: frontend/dist
+
+  deploy:
+    needs: build
+    runs-on: [self-hosted, dev]
+    steps:
+      - name: ✨ 기존 폴더 삭제
+        working-directory: .
+        run: rm -rf dev
+
+      - name: ✨ artifact로부터 EC2에 빌드결과물 다운로드
+        uses: actions/download-artifact@v3
+        with:
+          name: dev-dist
+          path: dev/dist
+
+      - name: ✨ S3 업로드
+        run: |
+          aws s3 sync dev ${{secrets.S3_FRONT_END_DEV_URI}} --delete
+      - name: ✨ 캐시 무효화
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_CELUVEAT_DEV_ID }} \
+            --paths "/*"
+```
+
+이렇게 개발서버 빌드파일은 자동화에 성공했습니다.
+
+## 선별적으로 기존 빌드파일 제거하기
+
+프로덕션 빌드파일의 경우 다른 정적 리소스들과 섞여있었기에 개발서버 빌드파일처럼 통째로 상위 디렉터리를 제거할 수 없었습니다.
+즉, 파일들을 선별해서 제거해야하는데 그렇게 하려면 AWS 커맨드에 대한 이해도가 필요하더라구요.
+디버깅하기가 쉽지 않아 코드를 짜는데 오래걸렸지만 결국 해결했습니다.
+
+이 코드를 응용하시면 쉽게 해결하실 것이라 생각하여 공유드립니다.
+
+```yml
+aws s3 rm $AWS_S3_BUCKET_URI --recursive --exclude 'images-data/*' --exclude 'review/*' --exclude "*.jpeg"
+```
+
+$AWS_S3_BUCKET_URI 라는 s3객체 주소에서 images-data, review 폴더, jpeg 파일들을 제외하고 제거(rm)하라는 명령어입니다.

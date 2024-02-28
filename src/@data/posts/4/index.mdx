@@ -1,0 +1,25 @@
+Next.js 13에서는 fetch된 Data를 기반으로 메타데이터를 동적으로 생성할 수 있도록 generateMetadata라는 함수를 제공한다.
+
+나는 사용자들이 오픈그래프 정보가 담긴 링크를 공유할 수 있도록 하기위해 이 기능을 사용을 사용하였다.
+
+정상적으로 작동하기에 서버로부터 메타데이터가 렌더링되는 줄만 알았다.
+
+SPA프로젝트에서 클라이언트에서 동적으로 메타데이터를 주입하는 방식을 사용하였을 때 링크 공유시 오픈그래프 정보를 불러오지 못하였기 때문이다.
+
+그러나 페이지 이동시 메타데이터가 플릭커링 없이 바뀌는 것을 확인하게 되었다.
+
+이 말은 즉슨 클라이언트에서 동적으로 메타데이터를 수정하는 것을 의미한다.
+
+네트워크 탭에서도 쉽게 확인할 수 있다.
+
+![](https://velog.velcdn.com/images/shackstack/post/7ed683ff-59ec-4f5f-8620-212b04980557/image.png)
+
+```
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"ì…€ëŸ½ìž‡"}],["$","meta","2",{"name":"description","content":"ì…€ëŸ½ ì¶”ì²œ ë§›ì§‘ ì„œë¹„ìŠ¤, ì…€ëŸ½ìž‡"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","4",{"property":"og:title","content":"ì…€ëŸ½ìž‡"}],["$","meta","5",{"property":"og:description","content":"ì…€ëŸ½ ì¶”ì²œ ë§›ì§‘ ì„œë¹„ìŠ¤, ì…€ëŸ½ìž‡"}],["$","meta","6",{"property":"og:image","content":"https://www.celuveat.com/og-image.jpeg"}],["$","meta","7",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","8",{"name":"twitter:title","content":"ì…€ëŸ½ìž‡"}],["$","meta","9",{"name":"twitter:description","content":"ì…€ëŸ½ ì¶”ì²œ ë§›ì§‘ ì„œë¹„ìŠ¤, ì…€ëŸ½ìž‡"}],["$","meta","10",{"name":"twitter:image","content":"https://www.celuveat.com/og-image.jpeg"}]]
+```
+
+그리고 새로고침해보면 서버로부터 렌더링되어 오는 것을 확인할 수 있다.
+
+![](https://velog.velcdn.com/images/shackstack/post/04b3b8e3-7e0f-4078-8c71-704bdae75a77/image.png)
+
+즉 Next.js 13의 Dynamic Metadata는 상황에 따라 서버에서 렌더링되기도하고 클라이언트에서 렌더링되기도한다.

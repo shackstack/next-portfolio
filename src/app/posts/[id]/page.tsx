@@ -21,7 +21,7 @@ const PostPage = ({ params: { id } }: Props) => {
       <article className="p-3 text-xl dark:bg-[#121212]">
         <div className="flex flex-col items-center">
           <div className="mb-16 flex w-[65rem] max-w-full flex-col gap-y-4 pt-[3rem]">
-            <h1 className="break-keep text-center text-6xl font-medium leading-tight tracking-tighter dark:text-white md:text-start md:leading-none">
+            <h1 className="break-keep text-center text-6xl font-medium leading-tight tracking-tighter dark:text-white md:text-start">
               {post?.title}
             </h1>
             <span className="text-end text-lg font-bold text-zinc-400">
@@ -32,6 +32,7 @@ const PostPage = ({ params: { id } }: Props) => {
           <div className="prose w-[65rem] max-w-full dark:prose-invert md:max-w-[60%]">
             <WebpackMD />
           </div>
+          <div className="h-24" />
         </div>
       </article>
     </>
